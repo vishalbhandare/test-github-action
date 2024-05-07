@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis ---
       - name: Run Application
         working-directory: packages/idex-core
-        run: npm run start
+        run: npm run start &
       - name: Run Test Cases
         working-directory: tests/idex-e2e
         run: npm i --ignore-scripts && npx playwright install && npm run e2e
