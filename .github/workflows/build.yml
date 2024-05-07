@@ -9,17 +9,16 @@ jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: tests/idex-e2e
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis ---
-      - run: npm i --ignore-scripts
-      # - run: npm run lint
-      - run: npx playwright install
-      - run: npm run e2e # runs test under hood
+      - name: Run Application
+        working-directory: packages/idex-core
+        run: npm run start
+      - name: Run Test Cases
+        working-directory: tests/idex-e2e
+        run: npm i --ignore-scripts && npx playwright install && npm run e2e
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
